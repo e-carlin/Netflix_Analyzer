@@ -1,5 +1,11 @@
 /**
- * Created by Moork on 11/29/16.
+ * Netflix Analyzer that allows users to explore
+ * Mark Gilbert and Evan Carlin
+ *
  */
 public class NetflixAnalyzer {
+
+    public static void main(String[] args){
+
+    }
 }
