@@ -180,7 +180,7 @@ public class NetflixFileProcessor {
                 Movie m = new Movie(movieId);
                 int index = movies.indexOf(m);
                 assert(index != -1); // we should have already processed all movies
-                movies.get(index).addRating(userId, rating);
+                    movies.get(index).addRating(userId, rating);
                 r.addMovie(movieId, rating);
             }
             catch(NumberFormatException e){
