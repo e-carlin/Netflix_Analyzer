@@ -218,8 +218,8 @@ public class NetflixFileProcessor {
 
     public static void main(String[] args){
         NetflixFileProcessor p = new NetflixFileProcessor();
-        p.readNetflixFile("./src/movie_reviews.txt");
-        p.readMovieTitlesFile("./src/movie_titles.txt");
+        p.readNetflixFiles("./src/movie_titles.txt", "./src/movie_reviews.txt");
+        //p.readMovieTitlesFile("./src/movie_titles.txt");
         List<Movie> list = p.getMovies();
 
         for(Movie m : list){
