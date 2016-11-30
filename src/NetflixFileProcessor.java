@@ -1,3 +1,7 @@
+package src;
+
+import src.Movie;
+import src.Reviewer;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -1,4 +1,8 @@
+package src;
 
+import src.Movie;
+import src.Reviewer;
+import src.Graph;
 import java.util.List;
 import java.util.Scanner;
 
