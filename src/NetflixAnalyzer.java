@@ -58,7 +58,6 @@ public class NetflixAnalyzer {
      */
     private static void BuildGraphForMoviesMadeWithin5Years(){
         int numberOfyearsApart = 5;
-        int c = 0;
         for(Movie u : movies){
             for(Movie v : movies){
                 if(u == v )continue;
