@@ -10,7 +10,14 @@ public class Graph {
     static HashMap<Integer, List<Integer>> connections = new HashMap<Integer, List<Integer>>();
 
     /**
-     * Adds information to the graph about a new connection between nodes.
+     * Constructs a graph
+     */
+    public Graph(){
+        connections = new HashMap<Integer, List<Integer>>();
+    }
+
+    /**
+     * Adds information to the graph about a new connection (edge) between nodes.
      *
      * @param from  Starting node
      * @param to  The node that's connected to from
