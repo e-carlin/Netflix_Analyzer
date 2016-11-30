@@ -13,12 +13,12 @@ public class NetflixAnalyzer {
         //Get the input from the user
         System.out.println("Please specify which file you would like to analyze");
         Scanner sc = new Scanner(System.in);
-        try{
-
-            File nf = new File(sc.next());
-
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-        }
+//        try{
+//
+//            File nf = new File(sc.next());
+//
+//        }catch(FileNotFoundException e){
+//            e.printStackTrace();
+//        }
     }
 }
