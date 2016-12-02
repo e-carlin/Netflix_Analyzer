@@ -6,7 +6,7 @@ import java.util.*;
  *
  */
 public class Graph {
-
+    //Should change this to private and use the getter
     HashMap<Integer, List<Integer>> connections = new HashMap<Integer, List<Integer>>();
     private int numVertices;
     /**
@@ -77,6 +77,9 @@ public class Graph {
         return connections.get(from);
     }
 
+    public HashMap<Integer, List<Integer>> returnConnections(){
+        return connections;
+    }
     public void addNode(int u){
         List<Integer> edges = new ArrayList<Integer>();
         numVertices++;
