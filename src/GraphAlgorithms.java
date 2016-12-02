@@ -14,7 +14,7 @@ public class GraphAlgorithms {
      * @param source
      * @return
      */
-    public static Integer[] dijsktraAlgWithHash(Graph g, int source){
+    public static HashMap<Integer,Integer> dijsktraAlgWithHash(Graph g, int source){
         //Hashmaps for general implementation
         HashMap<Integer, Integer> dist = new HashMap<Integer, Integer>();
         HashMap<Integer, Integer> prev = new HashMap<Integer, Integer>();
@@ -50,14 +50,7 @@ public class GraphAlgorithms {
                 }
             }
         }
-        //Add the the previous nodes to the array to return
-        Integer[] returnArr = new Integer[g.getNumVertices()];
-        int counter = 0;
-        for(Integer a : prev.values()){
-            returnArr[counter] = a;
-            counter++;
-        }
-        return returnArr;
+        return prev;
     }
 
 
@@ -105,10 +98,10 @@ public class GraphAlgorithms {
             System.out.println("These are the connections on graph2 " + i.toString());
         }
 
-        Integer[] test = dijsktraAlgWithHash(g, 1);
-        Integer[] test2 = dijsktraAlgWithHash(g2,1);
-        System.out.println("This is the result of dijkstra's on graph1 " + Arrays.toString(test));
-        System.out.println("This is the result of dijkstra's on graph2" + Arrays.toString(test2));
+        HashMap<Integer, Integer> test = dijsktraAlgWithHash(g, 1);
+        HashMap<Integer,Integer> test2 = dijsktraAlgWithHash(g2,1);
+        System.out.println("This is the result of dijkstra's on graph1 " + test.entrySet());
+        System.out.println("This is the result of dijkstra's on graph2" + test2.entrySet());
 
     }
 }
