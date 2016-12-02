@@ -1,4 +1,3 @@
-package src;
 /**
  * A wrapper class for priority queue elements
  *

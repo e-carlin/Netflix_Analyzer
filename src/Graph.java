@@ -1,4 +1,3 @@
-package src;
 import java.util.*;
 
 /**
@@ -9,7 +8,7 @@ import java.util.*;
 public class Graph {
 
     static HashMap<Integer, List<Integer>> connections = new HashMap<Integer, List<Integer>>();
-
+    private int numVertices;
     /**
      * Constructs a graph
      */
@@ -64,6 +63,10 @@ public class Graph {
         return (endpoints != null) && endpoints.contains(to);
     }
 
+    public int getNumVertices(){
+        return this.numVertices;
+    }
+
     /**
      * Return a list of all nodes adjacent to "from".
      *
@@ -76,6 +79,7 @@ public class Graph {
 
     public void addNode(int u){
         List<Integer> edges = new ArrayList<Integer>();
+        numVertices++;
         connections.put(u,edges);
     }
 
