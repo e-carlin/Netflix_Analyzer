@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class Graph {
 
-    static HashMap<Integer, List<Integer>> connections = new HashMap<Integer, List<Integer>>();
+    HashMap<Integer, List<Integer>> connections = new HashMap<Integer, List<Integer>>();
     private int numVertices;
     /**
      * Constructs a graph
@@ -109,7 +109,7 @@ public class Graph {
         g.addEdge(2,3);
 
 
-        for(Map.Entry<Integer, List<Integer>> i : connections.entrySet()){
+        for(Map.Entry<Integer, List<Integer>> i : g.connections.entrySet()){
             System.out.println("These are the connections " + i.toString());
         }
 
