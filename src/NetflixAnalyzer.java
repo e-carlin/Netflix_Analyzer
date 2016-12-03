@@ -42,12 +42,17 @@ public class NetflixAnalyzer {
         System.out.println();
         System.out.println("There are 2 options for definig adjacency");
         System.out.println("[OPTION 1] u and v are adjacent if they were made within 5 years of eachother.");
-        //TODO: Define the other options and actually get the selected option from the user
+        //TODO: Is this right for option 2????
+        System.out.println("[OPTION 2] u and v are adjacent if they have atleast one person who has seen both of them");
+        //TODO: Actually get the selected option from the user
+        System.out.print("Creating graph...");
         BuildGraphForMoviesMadeWithin5Years();
 //        BuildGraphOption2Optimize();
 
-        System.out.println("\nGraph has been created");
-        System.out.println(moviesGraph);
+        System.out.println("Graph has been created");
+        System.out.println(moviesGraph); //TODO: Remove, thsi is just for testing purposes
+
+        System.out.println("\n\n[Option 1] Print out statistics about the graph");
         displayGraphStatistics();
     }
 
@@ -114,10 +119,13 @@ public class NetflixAnalyzer {
         }
 
         private static void displayGraphStatistics(){
-            //TODO: number of nodes
-            //TODO:number of edges
+            //Number of nodes
+            int numNodes = moviesGraph.getNumVertices();
+            //Number of edges
+            int numEdges = moviesGraph.getNumEdges();
             //TODO: density
-            //TODO: maximum degree
+            //Maximum degree
+            int maxDegree = moviesGraph.getMaxDegree();
 
             //Need to run Floyd Warshall for these
             int[][]  allPairsShortestPath = GraphAlgorithms.floydWarshall(moviesGraph, INFINITY);
@@ -128,8 +136,11 @@ public class NetflixAnalyzer {
 
 
             System.out.println("Printing statisctics about the graph...");
-            System.out.println(Arrays.deepToString(allPairsShortestPath)); //TODO: Remove, this line is just for testing
-            System.out.printf("The diameter of the graph is = %d%n", diameter);
-            System.out.printf("The average length shortest path is = %d%n", avgLengthShortesPath);
+            System.out.println("Shortest paths " +Arrays.deepToString(allPairsShortestPath)); //TODO: Remove, this line is just for testing
+            System.out.printf("The graph contains %d nodes%n", numNodes);
+            System.out.printf("The graph contains %d edges%n", numEdges);
+            System.out.printf("The maximum degree of any node is %d%n",maxDegree);
+            System.out.printf("The diameter of the graph is  %d%n", diameter);
+            System.out.printf("The average length shortest path is  %d%n", avgLengthShortesPath);
         }
 }

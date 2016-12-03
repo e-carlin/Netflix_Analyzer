@@ -68,6 +68,27 @@ public class Graph {
     }
 
     /**
+     * The number of edges in the graph
+     * @return the number of edges
+     */
+    public int getNumEdges(){
+        int numEdges = 0;
+        for(Map.Entry<Integer, List<Integer>> node : connections.entrySet()){
+            numEdges += node.getValue().size();
+        }
+        return numEdges;
+    }
+
+    public int getMaxDegree(){
+        int maxDegree = 0;
+        for(Map.Entry<Integer, List<Integer>> node : connections.entrySet()){
+            if(node.getValue().size() > maxDegree){
+                maxDegree = node.getValue().size();
+            }
+        }
+        return maxDegree;
+    }
+    /**
      * Return a list of all nodes adjacent to "from".
      *
      * @param from  The node whose neighbors we want
