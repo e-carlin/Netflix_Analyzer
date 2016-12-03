@@ -8,6 +8,44 @@ import java.util.HashMap;
 public class GraphAlgorithms {
 
 
+    public static int[][] floydWarshall(Graph g, int INFINITY){
+        int numberOfVerts = g.getNumVertices();
+        int[][] dist = new int[numberOfVerts+1][numberOfVerts+1];
+
+        //Initialize the dist matrix
+        for(int src=1; src<=numberOfVerts; src++){
+            for(int dest=1; dest<=numberOfVerts; dest++){
+                //Get all of the source nodes neighbors
+                List<Integer> neighbors = g.getNeighbors(src);
+                //if the source node is connected to the destination node
+                if(neighbors.contains(dest)){
+
+                    dist[src][dest] = 1;
+                }
+                //The nodes aren't connected so you can't currently get from one to the other
+                else{
+                    dist[src][dest] = INFINITY;
+                }
+            }
+        }
+
+
+        //Compute the all pairs shortest paths
+        for(int intermediate =1; intermediate<=numberOfVerts; intermediate++){
+            for(int src=1; src<=numberOfVerts; src++){
+                for(int dest=1; dest<=numberOfVerts; dest++){
+                    //If it is less costly to go through this intermediate node
+                    if(dist[src][intermediate] + dist[intermediate][dest] < dist[src][dest]){
+                        //Then update the matrix with this new lower cost path
+                        dist[src][dest] = dist[src][intermediate] + dist[intermediate][dest];
+                    }
+                }
+            }
+        }
+        return dist;
+    }
+
+
     /**
      * Returns back the set of parent nodes
      * @param g

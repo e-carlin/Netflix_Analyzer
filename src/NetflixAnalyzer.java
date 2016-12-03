@@ -1,4 +1,5 @@
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Map;
@@ -12,6 +13,7 @@ public class NetflixAnalyzer {
     private static List<Movie> movies;
     private static List<Reviewer> reviewers;
     private static Graph moviesGraph;
+    private static final int INFINITY = (Integer.MAX_VALUE/2) - 10;
 
     public static void main(String[] args){
         System.out.println("******** Welcom to the Netflix Analyzer ********");
@@ -26,7 +28,7 @@ public class NetflixAnalyzer {
         NetflixFileProcessor NFFileProcessor = new NetflixFileProcessor();
         //TODO: Uncomment the code to actually get data from the user
 //        NFFileProcessor.readNetflixFiles(movieFileName, reviewFileName);
-        NFFileProcessor.readNetflixFiles("./src/movie_titles_short.txt", "./src/movie_reviews_short.txt");
+        NFFileProcessor.readNetflixFiles("movie_titles_short.txt", "movie_reviews_short.txt");
 
         //Construct the lists
         movies = NFFileProcessor.getMovies();
@@ -41,11 +43,14 @@ public class NetflixAnalyzer {
         System.out.println("There are 2 options for definig adjacency");
         System.out.println("[OPTION 1] u and v are adjacent if they were made within 5 years of eachother.");
         //TODO: Define the other options and actually get the selected option from the user
-        //BuildGraphForMoviesMadeWithin5Years();
-        BuildGraphOption2Optimize();
+        BuildGraphForMoviesMadeWithin5Years();
+//        BuildGraphOption2Optimize();
+
+        System.out.println("\nGraph has been created");
         System.out.println(moviesGraph);
 
-
+        int[][]  allPairsShortestPath = GraphAlgorithms.floydWarshall(moviesGraph, INFINITY);
+        System.out.println(Arrays.deepToString(allPairsShortestPath));
     }
 
 
