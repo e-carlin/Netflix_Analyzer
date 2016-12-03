@@ -8,6 +8,13 @@ import java.util.HashMap;
 public class GraphAlgorithms {
 
 
+    /**
+     * Computes the all pairs shortest paths according to floyd warshall algorithm
+     * @param g the graph
+     * @param INFINITY a number used as infinity (Must be < Integer.MAX_Value/2)
+     * @return a 2D array with the path cost to every node from every node (NOTE:
+     *          the first row and col is always 0 because the movies are indexed from 1)
+     */
     public static int[][] floydWarshall(Graph g, int INFINITY){
         int numberOfVerts = g.getNumVertices();
         int[][] dist = new int[numberOfVerts+1][numberOfVerts+1];

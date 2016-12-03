@@ -48,9 +48,7 @@ public class NetflixAnalyzer {
 
         System.out.println("\nGraph has been created");
         System.out.println(moviesGraph);
-
-        int[][]  allPairsShortestPath = GraphAlgorithms.floydWarshall(moviesGraph, INFINITY);
-        System.out.println(Arrays.deepToString(allPairsShortestPath));
+        displayGraphStatistics();
     }
 
 
@@ -113,5 +111,25 @@ public class NetflixAnalyzer {
                     }
                 }
             }
+        }
+
+        private static void displayGraphStatistics(){
+            //TODO: number of nodes
+            //TODO:number of edges
+            //TODO: density
+            //TODO: maximum degree
+
+            //Need to run Floyd Warshall for these
+            int[][]  allPairsShortestPath = GraphAlgorithms.floydWarshall(moviesGraph, INFINITY);
+            //Diameter
+            int diameter = GraphStatistics.diameter(allPairsShortestPath, INFINITY);
+            //avg length of the shortest path
+            int avgLengthShortesPath = GraphStatistics.avgLengthShortesPath(allPairsShortestPath, INFINITY);
+
+
+            System.out.println("Printing statisctics about the graph...");
+            System.out.println(Arrays.deepToString(allPairsShortestPath)); //TODO: Remove, this line is just for testing
+            System.out.printf("The diameter of the graph is = %d%n", diameter);
+            System.out.printf("The average length shortest path is = %d%n", avgLengthShortesPath);
         }
 }
