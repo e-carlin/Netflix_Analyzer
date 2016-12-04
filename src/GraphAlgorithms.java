@@ -59,7 +59,7 @@ public class GraphAlgorithms {
      * @param source
      * @return
      */
-    public static HashMap<Integer,Integer> dijsktraAlgWithHash(Graph g, int source){
+    public HashMap<Integer,Integer> dijsktraAlgWithHash(Graph g, int source){
         //Hashmaps for general implementation
         HashMap<Integer, Integer> dist = new HashMap<Integer, Integer>();
         HashMap<Integer, Integer> prev = new HashMap<Integer, Integer>();
@@ -100,6 +100,7 @@ public class GraphAlgorithms {
 
 
     public static void main(String[] args){
+       GraphAlgorithms ga = new GraphAlgorithms();
         Graph g = new Graph();
         g.addNode(1);
         g.addNode(2);
@@ -143,8 +144,8 @@ public class GraphAlgorithms {
             System.out.println("These are the connections on graph2 " + i.toString());
         }
 
-        HashMap<Integer, Integer> test = dijsktraAlgWithHash(g, 1);
-        HashMap<Integer,Integer> test2 = dijsktraAlgWithHash(g2,1);
+        HashMap<Integer, Integer> test = ga.dijsktraAlgWithHash(g, 1);
+        HashMap<Integer,Integer> test2 = ga.dijsktraAlgWithHash(g2,1);
         System.out.println("This is the result of dijkstra's on graph1 " + test.entrySet());
         System.out.println("This is the result of dijkstra's on graph2" + test2.entrySet());
 
