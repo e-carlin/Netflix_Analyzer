@@ -118,8 +118,11 @@ public class GraphAlgorithms {
             //System.out.println(endNode);
             return;
         }
+        //System.out.println(result.get(endNode) + " ===> " + endNode);
+        System.out.println(endNode + " ===> " + result.get(endNode));
+
         printPath2(result, result.get(endNode));
-        System.out.println(result.get(endNode) + " ===> " + endNode);
+        //System.out.println(endNode + " ===> " + result.get(endNode));
     }
 
     public static void main(String[] args){
@@ -173,7 +176,7 @@ public class GraphAlgorithms {
         System.out.println("These are the values of graph2"+ test2.values());
         System.out.println("These are the keys of graph1"+ test.keySet());
         System.out.println("These are the keys of graph2"+ test2.keySet());
-        System.out.println("This is the path ");
+        System.out.println("This is the path from 5");
         printPath2(test, 5);
         System.out.println("This is the result of dijkstra's on graph1 " + test.entrySet());
         System.out.println("This is the result of dijkstra's on graph2" + test2.entrySet());

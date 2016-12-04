@@ -64,7 +64,7 @@ public class NetflixAnalyzer {
             // *** This MUST happen before the buildGraph method are called ***
             addMoviesToGraph();
 
-
+            //System.out.println("These are the movies " + movies.toString());
             System.out.println();
             System.out.println("There are 2 options for defining adjacency");
             System.out.println("[OPTION 1] u and v are adjacent if they were made within 5 years of eachother.");
@@ -190,12 +190,16 @@ public class NetflixAnalyzer {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter a start node (1-" + moviesGraph.getNumVertices() + "): ");
         int start = sc.nextInt();
+        System.out.println("This is the start number " + start);
         System.out.println("Enter a end node (1-" + moviesGraph.getNumVertices() + "): ");
         int end = sc.nextInt();
+        System.out.println("This is the end number " + end);
         graphAlgorithms = new GraphAlgorithms();
         HashMap<Integer, Integer> hm = graphAlgorithms.dijsktraAlgWithHash(moviesGraph, start);
        // graphAlgorithms.printPath2(hm, end);
         printPath2(hm, end);
+
+        //printPath2(hm, end-1, start);
 
     }
 
@@ -205,11 +209,12 @@ public class NetflixAnalyzer {
             //System.out.println(endNode);
             return;
         }
-        printPath2(result, result.get(endNode));
-        int otherMovie = result.get(endNode);
-        System.out.println(movies.get(otherMovie).getTitle() + " ===> " + movies.get(endNode).getTitle());
 
-        //System.out.println(result.get(endNode) + " ===> " + endNode);
+        int otherMovie = result.get(endNode);
+        //The List index is off by 1 so need to subtract 1
+        System.out.println(movies.get(endNode-1).getTitle() + " ===> " + movies.get(otherMovie-1).getTitle());
+
+        printPath2(result, result.get(endNode));
     }
     private static void displayGraphStatistics(){
         //Number of nodes
