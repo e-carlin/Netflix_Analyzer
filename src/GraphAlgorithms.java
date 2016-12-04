@@ -98,6 +98,29 @@ public class GraphAlgorithms {
         return prev;
     }
 
+    /**
+     * Prints the path from the start node to the end node
+     * @param result
+     * @param startNode
+     * @param endNode
+     */
+    public static void printPath(HashMap<Integer,Integer> result, Integer startNode, Integer endNode){
+
+        System.out.print(startNode + " ===> ");
+        for(Integer v : result.keySet()){
+
+        }
+    }
+
+    public static void printPath2(HashMap<Integer,Integer> result, Integer endNode){
+        //Base case
+        if(result.get(endNode) == null){
+            //System.out.println(endNode);
+            return;
+        }
+        printPath2(result, result.get(endNode));
+        System.out.println(result.get(endNode) + " ===> " + endNode);
+    }
 
     public static void main(String[] args){
        GraphAlgorithms ga = new GraphAlgorithms();
@@ -146,6 +169,12 @@ public class GraphAlgorithms {
 
         HashMap<Integer, Integer> test = ga.dijsktraAlgWithHash(g, 1);
         HashMap<Integer,Integer> test2 = ga.dijsktraAlgWithHash(g2,1);
+        System.out.println("These are the values of graph1"+ test.values());
+        System.out.println("These are the values of graph2"+ test2.values());
+        System.out.println("These are the keys of graph1"+ test.keySet());
+        System.out.println("These are the keys of graph2"+ test2.keySet());
+        System.out.println("This is the path ");
+        printPath2(test, 5);
         System.out.println("This is the result of dijkstra's on graph1 " + test.entrySet());
         System.out.println("This is the result of dijkstra's on graph2" + test2.entrySet());
 

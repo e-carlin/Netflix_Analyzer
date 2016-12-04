@@ -1,12 +1,10 @@
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Map;
+import java.util.*;
 import java.io.File;
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 /**
  * Netflix Analyzer that allows users to explore
@@ -22,26 +20,41 @@ public class NetflixAnalyzer {
 
     public static void main(String[] args){
         System.out.println("******** Welcome to the Netflix Analyzer ********");
+        //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Scanner sc = new Scanner(System.in);
+        System.out.println("Please enter the movie file you would like to analyze: ");
 
         while(sc.hasNext()){
+//            System.out.print("Please enter your name? ");
+//            String name = reader.readLine();
+//            System.out.println("Your name is: " + name);
             //Get the input from the user
             //System.out.println("Please specify which file you would like to analyze (movie file first, then review file)");
-            System.out.println("Please enter the movie file you would like to analyze");
+            String movieFileName = sc.nextLine();
 
+            //Skip a line
+            //sc.nextLine();
+
+            System.out.println("Enter the review file: ");
+            String reviewFileName = sc.nextLine();
             //Might want to put this in a try/catch block
-
-
             NetflixFileProcessor NFFileProcessor = new NetflixFileProcessor();
+
+            NFFileProcessor.readNetflixFiles(movieFileName, reviewFileName);
+
+//            try{
+//                NFFileProcessor.readNetflixFiles(movieFileName, reviewFileName);
+//
+//            }catch(IOException e){
+//                System.err.println("Not a valid file, try again");
+//            }
             // NFFileProcessor.readNetflixFiles("movie_titles_short.txt", "movie_reviews_short.txt");
 
             //TODO: Uncomment the code to actually prompt the user for the file names
-            String movieFileName = sc.nextLine();
-            String reviewFileName = sc.nextLine();
 
-            //Proccess the files
+
+            //Proccess the files, should be in a try block
             //TODO: Uncomment the code to actually get data from the user
-            NFFileProcessor.readNetflixFiles(movieFileName, reviewFileName);
 
             //Construct the lists
             movies = NFFileProcessor.getMovies();
@@ -78,22 +91,36 @@ public class NetflixAnalyzer {
 
             System.out.println("Graph has been created");
             System.out.println(moviesGraph); //TODO: Remove, thsi is just for testing purposes
-
-            System.out.println("\n\n[Option 1] Print out statistics about the graph");
-            System.out.println("\n\n[Option 2] Display shortest path between 2 nodes");
-            System.out.println("\n\n[Option 2] Quit");
-            int choice2 = sc.nextInt();
-            switch(choice2){
-                case 1:
-                    displayGraphStatistics();
-                    break;
-                case 2:
-
-
+            boolean flag = false;
+            while(!flag){
+                System.out.println("\n\n[Option 1] Print out statistics about the graph");
+                System.out.println("\n\n[Option 2] Display shortest path between 2 nodes");
+                System.out.println("\n\n[Option 2] Quit");
+                int choice2 = sc.nextInt();
+                switch(choice2){
+                    case 1:
+                        displayGraphStatistics();
+                        break;
+                    case 2:
+                        //Need to handle when there is no path
+                        displayShortestPath();
+                        break;
+                    case 3:
+                        System.out.println("Thank you for analyzing?..... EXITING");
+                        sc.close();
+                        //Just in case
+                        flag = true;
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("Try again?");
+                        //flag = true;
+                        break;
+                }
             }
 
-
         }
+        sc.close();
 
     }
 
@@ -166,7 +193,23 @@ public class NetflixAnalyzer {
         System.out.println("Enter a end node (1-" + moviesGraph.getNumVertices() + "): ");
         int end = sc.nextInt();
         graphAlgorithms = new GraphAlgorithms();
-        graphAlgorithms.dijsktraAlgWithHash(moviesGraph, start);
+        HashMap<Integer, Integer> hm = graphAlgorithms.dijsktraAlgWithHash(moviesGraph, start);
+       // graphAlgorithms.printPath2(hm, end);
+        printPath2(hm, end);
+
+    }
+
+    public static void printPath2(HashMap<Integer,Integer> result, Integer endNode){
+        //Base case
+        if(result.get(endNode) == null){
+            //System.out.println(endNode);
+            return;
+        }
+        printPath2(result, result.get(endNode));
+        int otherMovie = result.get(endNode);
+        System.out.println(movies.get(otherMovie).getTitle() + " ===> " + movies.get(endNode).getTitle());
+
+        //System.out.println(result.get(endNode) + " ===> " + endNode);
     }
     private static void displayGraphStatistics(){
         //Number of nodes
