@@ -124,6 +124,9 @@ public class NetflixAnalyzer {
             //Number of edges
             int numEdges = moviesGraph.getNumEdges();
             //TODO: density
+            //Density for a directed graph
+
+            double density = (double)numEdges/((double)numNodes * (double)(numNodes-1));
             //Maximum degree
             int maxDegree = moviesGraph.getMaxDegree();
 
@@ -137,6 +140,7 @@ public class NetflixAnalyzer {
 
             System.out.println("Printing statisctics about the graph...");
             System.out.println("Shortest paths " +Arrays.deepToString(allPairsShortestPath)); //TODO: Remove, this line is just for testing
+            System.out.println("Density = " + density);
             System.out.printf("The graph contains %d nodes%n", numNodes);
             System.out.printf("The graph contains %d edges%n", numEdges);
             System.out.printf("The maximum degree of any node is %d%n",maxDegree);
