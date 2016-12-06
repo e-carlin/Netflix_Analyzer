@@ -6,8 +6,12 @@ import java.util.HashMap;
  * @author Mark Gilbert and Evan Carlin
  */
 public class GraphAlgorithms {
+    public static PriorityQueue pq;
 
 
+    public GraphAlgorithms(){
+        this.pq = new PriorityQueue();
+    }
     /**
      * Computes the all pairs shortest paths according to floyd warshall algorithm
      * @param g the graph
@@ -63,7 +67,7 @@ public class GraphAlgorithms {
         //Hashmaps for general implementation
         HashMap<Integer, Integer> dist = new HashMap<Integer, Integer>();
         HashMap<Integer, Integer> prev = new HashMap<Integer, Integer>();
-        PriorityQueue pq = new PriorityQueue();
+        //pq = new PriorityQueue();
         //Distance from the source to itself is 0
         dist.put(source,0);
         //The source has no previous node
@@ -81,6 +85,8 @@ public class GraphAlgorithms {
 
         while(!pq.isEmpty()){
             //Get the top element then pop it
+            System.out.println("Printing out pq ");
+            pq.printHeap();
             int u = pq.topElement();
             pq.pop();
 
@@ -98,6 +104,9 @@ public class GraphAlgorithms {
         return prev;
     }
 
+    public PriorityQueue returnPQ(){
+        return this.pq;
+    }
     /**
      * Prints the path from the start node to the end node
      * @param result

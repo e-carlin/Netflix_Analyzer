@@ -84,6 +84,8 @@ public class NetflixAnalyzer {
                 //A try catch block might make more sense
             }
 
+            //For testing
+            //System.out.println("This is the graph that was created " + moviesGraph.toString());
             System.out.println("Graph has been created");
             boolean flag = false;
             while(!flag){
@@ -122,20 +124,7 @@ public class NetflixAnalyzer {
         }
     }
 
-    /*
-     * Builds the graph for option 1; movies are connected if they were made within 5 years of eachother
-     */
-    private static void BuildGraphForMoviesMadeWithin5Years(){
-        int numberOfyearsApart = 5;
-        for(Movie u : movies){
-            for(Movie v : movies){
-                if(u == v )continue;
-                if(Math.abs(u.getYear() - v.getYear()) < numberOfyearsApart) {
-                    moviesGraph.addEdge(u.getMovieId(), v.getMovieId());
-                }
-            }
-        }
-    }
+
 
     /**
      * Builds the graph based on the idea that movies are connected if a reviewer has seen both movies
@@ -158,6 +147,20 @@ public class NetflixAnalyzer {
         }
     }
 
+    /*
+  * Builds the graph for option 1; movies are connected if they were made within 5 years of eachother
+  */
+    private static void BuildGraphForMoviesMadeWithin5Years(){
+        int numberOfyearsApart = 5;
+        for(Movie u : movies){
+            for(Movie v : movies){
+                if(u == v || moviesGraph.getNeighbors(u.getMovieId()).contains(v.getMovieId())) continue;
+                if(Math.abs(u.getYear() - v.getYear()) <= numberOfyearsApart) {
+                    moviesGraph.addEdge(u.getMovieId(), v.getMovieId());
+                }
+            }
+        }
+    }
     /**
      *
      */
@@ -192,9 +195,12 @@ public class NetflixAnalyzer {
         int end = sc.nextInt();
         System.out.println("This is the end number " + end);
         graphAlgorithms = new GraphAlgorithms();
-
+    //PriorityQueue pq = graphAlgorithms.returnPQ();
+        //System.out.println("This is the priority queue ");
+        //pq.printHeap();
         HashMap<Integer, Integer> hm = graphAlgorithms.dijsktraAlgWithHash(moviesGraph, start);
-       // graphAlgorithms.printPath2(hm, end);
+
+        // graphAlgorithms.printPath2(hm, end);
         printPath2(hm, end);
 
         //printPath2(hm, end-1, start);
