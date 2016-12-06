@@ -126,27 +126,6 @@ public class NetflixAnalyzer {
 
 
 
-    /**
-     * Builds the graph based on the idea that movies are connected if a reviewer has seen both movies
-     * We can probably optimize this a bit because we really only want to check all the movies that a reviewer
-     * has seen not all the movies each time
-     */
-    private static void BuildGraphOption2(){
-        for(Movie u : movies){
-            for(Movie v : movies){
-                if(u==v) continue;
-                for(Reviewer r : reviewers){
-                    Map<Integer,Integer> rMap = r.getRatings();
-                    if(rMap.keySet().contains(u.getMovieId()) && rMap.keySet().contains(v.getMovieId())){
-                        moviesGraph.addEdge(u.getMovieId(), v.getMovieId());
-                        //Might not want to break because we have to go through all the
-                        //break;
-                    }
-                }
-            }
-        }
-    }
-
     /*
   * Builds the graph for option 1; movies are connected if they were made within 5 years of eachother
   */
