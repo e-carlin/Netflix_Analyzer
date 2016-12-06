@@ -73,6 +73,7 @@ public class GraphAlgorithms {
         //The source has no previous node
         prev.put(source, null);
         pq.push(0,source);
+        //pq.push(source, 0);
 
         //Initialization
         for(int i : g.connections.keySet()){
@@ -81,12 +82,13 @@ public class GraphAlgorithms {
             dist.put(i, Integer.MAX_VALUE);
             prev.put(i, null);
             pq.push(dist.get(i), i);
+            //pq.push(i, dist.get(i));
         }
 
         while(!pq.isEmpty()){
             //Get the top element then pop it
-            System.out.println("Printing out pq ");
-            pq.printHeap();
+            //System.out.println("Printing out pq ");
+            //pq.printHeap();
             int u = pq.topElement();
             pq.pop();
 
