@@ -1,13 +1,13 @@
 import java.util.*;
 
 /**
- *
+ * Directed graph that uses an adjacency list representation
+ * Keys are Integers and Values are Lists of Integers
  * @author Mark Gilbert and Evan Carlin
  *
  */
 public class Graph {
-    //Should change this to private and use the getter
-    HashMap<Integer, List<Integer>> connections = new HashMap<Integer, List<Integer>>();
+    private HashMap<Integer, List<Integer>> connections = new HashMap<Integer, List<Integer>>();
     private int numVertices;
     /**
      * Constructs a graph
@@ -98,9 +98,18 @@ public class Graph {
         return connections.get(from);
     }
 
+    /**
+     * Returns the hash map associated with this graph
+     * @return Hash map of the nodes to its connections
+     */
     public HashMap<Integer, List<Integer>> returnConnections(){
         return connections;
     }
+
+    /**
+     * Adds a node to the graph
+     * @param u the node to add
+     */
     public void addNode(int u){
         List<Integer> edges = new ArrayList<Integer>();
         numVertices++;
@@ -108,37 +117,12 @@ public class Graph {
     }
 
     /**
-     * Just turn the table into a Integer and return that.
+     * Returns the String representation of the hashmap
+     * @return connections as a String
      */
     public String toString() {
         return connections.toString();
     }
 
-    /**
-     * Tester just for the Graph
-     * @param args
-     */
-    public static void main(String[] args){
-        Graph g = new Graph();
-        g.addNode(1);
-        g.addNode(2);
-        g.addNode(3);
-        g.addNode(4);
-        g.addNode(5);
-
-        g.addEdge(1,3);
-        g.addEdge(3,5);
-        g.addEdge(4,5);
-        g.addEdge(1,2);
-        g.addEdge(2,3);
-
-
-        for(Map.Entry<Integer, List<Integer>> i : g.connections.entrySet()){
-            System.out.println("These are the connections " + i.toString());
-        }
-
-        System.out.println("These are the neighbors of 1 " + g.getNeighbors(1).toString());
-
-    }
 }
 

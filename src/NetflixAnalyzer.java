@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 
@@ -13,47 +15,32 @@ public class NetflixAnalyzer {
     private static GraphAlgorithms graphAlgorithms;
     private static final int INFINITY = (Integer.MAX_VALUE/2) - 10;
 
+    /**
+     * Main method
+     * @param args not used
+     */
     public static void main(String[] args){
         run();
     }
 
     /**
-     *
+     * Control of the program
      */
     private static void run(){
         System.out.println("******** Welcome to the Netflix Analyzer ********");
-        //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Scanner sc = new Scanner(System.in);
         System.out.println("Please enter the movie file you would like to analyze: ");
 
         while(sc.hasNext()){
-//            System.out.print("Please enter your name? ");
-//            String name = reader.readLine();
-//            System.out.println("Your name is: " + name);
             //Get the input from the user
-            System.out.println("Please specify which file you would like to analyze (movie file first, then review file)");
             String movieFileName = sc.nextLine();
-
-            //Skip a line
-            //sc.nextLine();
 
             System.out.println("Enter the review file: ");
             String reviewFileName = sc.nextLine();
+
             //Might want to put this in a try/catch block
             NetflixFileProcessor NFFileProcessor = new NetflixFileProcessor();
-
-            //TODO: Finish this code
-//            NFFileProcessor.readNetflixFiles(movieFileName, reviewFileName);
-
-//            try{
-//                NFFileProcessor.readNetflixFiles(movieFileName, reviewFileName);
-//
-//            }catch(IOException e){
-//                System.err.println("Not a valid file, try again");
-//            }
-             NFFileProcessor.readNetflixFiles("movie_titles_short.txt", "movie_reviews_short.txt");
-
-            //Proccess the files, should be in a try block
+            NFFileProcessor.readNetflixFiles(movieFileName, reviewFileName);
 
             //Construct the lists
             movies = NFFileProcessor.getMovies();
@@ -63,7 +50,6 @@ public class NetflixAnalyzer {
             // *** This MUST happen before the buildGraph method are called ***
             addMoviesToGraph();
 
-            //System.out.println("These are the movies " + movies.toString());
             System.out.println();
             System.out.println("There are 2 options for defining adjacency");
             System.out.println("[OPTION 1] u and v are adjacent if they were made within 5 years of eachother.");
@@ -71,22 +57,23 @@ public class NetflixAnalyzer {
             System.out.println("EX: User1 watches movie 1 and movie 2, ergo movie 1 and 2 are connected, if user1 watches movies 1-10, movies 1-10 are connected");
 
             System.out.println("Choose an option to build the graph with");
-            //Should handle bad input
             int choice = sc.nextInt();
-            if(choice == 1){
-                System.out.print("Creating graph...");
-                BuildGraphForMoviesMadeWithin5Years();
-            }else if(choice ==2){
-                System.out.print("Creating graph...");
-                BuildGraphOption2Optimize();
-
-            }else{
-                System.out.println("Incorrect input try again");
-                //A try catch block might make more sense
+            boolean check = false;
+            while(!check){
+                if(choice == 1){
+                    System.out.print("Creating graph...");
+                    BuildGraphForMoviesMadeWithin5Years();
+                    check = true;
+                }else if(choice == 2){
+                    System.out.print("Creating graph...");
+                    BuildGraphOption2Optimize();
+                    check = true;
+                }else{
+                    System.out.println("Incorrect input try again");
+                    check = false;
+                }
             }
 
-            //TODO: Remove for testing
-            System.out.println("This is the graph that was created " + moviesGraph.toString());
             System.out.println("Graph has been created");
             boolean flag = false;
             while(!flag){
@@ -103,33 +90,32 @@ public class NetflixAnalyzer {
                         displayShortestPath();
                         break;
                     case 3:
-                        System.out.println("Thank you for analyzing?..... EXITING");
+                        System.out.println("Thank you for analyzing..... EXITING");
                         sc.close();
-                        //Just in case, can probably remove
-                        flag = true;
                         System.exit(0);
                         break;
                     default:
-                        System.out.println("Try again?");
-                        //flag = true;
+                        System.out.println("Try again");
+                        flag = false;
                         break;
                 }
             }
-
         }
         sc.close();
     }
+
+    /**
+     * Adds all the movies to the graph as individual nodes which will be connected when we build the graph
+     */
     private static void addMoviesToGraph(){
         for(Movie m : movies){
             moviesGraph.addNode(m.getMovieId());
         }
     }
 
-
-
-    /*
-  * Builds the graph for option 1; movies are connected if they were made within 5 years of eachother
-  */
+    /**
+     * Builds the graph for option 1; movies are connected if they were made within 5 years of eachother
+     */
     private static void BuildGraphForMoviesMadeWithin5Years(){
         int numberOfYearsApart = 5;
         for(Movie u : movies){
@@ -144,7 +130,8 @@ public class NetflixAnalyzer {
         }
     }
     /**
-     *
+     * Builds the graph for option 2; movies are connected if a user watches both movies.
+     * This means that if user 1 watches movies 2 and 3, movies 2 and 3 are connected.
      */
     private static void BuildGraphOption2Optimize(){
         //For each reviewer check their list of reviewed movies
@@ -166,45 +153,39 @@ public class NetflixAnalyzer {
     }
 
     /**
-     *
+     * Displays the shortest path from one node to another with Dijkstra's algorithm
      */
     private static void displayShortestPath(){
         Scanner sc = new Scanner(System.in);
+        //Get the start and end node
         System.out.println("Enter a start node (1-" + moviesGraph.getNumVertices() + "): ");
         int start = sc.nextInt();
-        System.out.println("This is the start number " + start);
         System.out.println("Enter a end node (1-" + moviesGraph.getNumVertices() + "): ");
         int end = sc.nextInt();
-        System.out.println("This is the end number " + end);
+
+        //Check to make sure it was valid input
+        if(start > moviesGraph.getNumVertices() || start < 0 || end > moviesGraph.getNumVertices() || end < 0){
+            System.err.println("That was bad input");
+            return;
+        }
         graphAlgorithms = new GraphAlgorithms();
-    //PriorityQueue pq = graphAlgorithms.returnPQ();
-        //System.out.println("This is the priority queue ");
-        //pq.printHeap();
         HashMap<Integer, Integer> hm = graphAlgorithms.dijsktraAlgWithHash(moviesGraph, start);
-
-        // graphAlgorithms.printPath2(hm, end);
         printPath2(hm, end);
-
-        //printPath2(hm, end-1, start);
-
     }
 
     /**
-     *
-     * @param result
-     * @param endNode
+     * Recursive path print that starts at the end node and prints each previous node in the back
+     * @param result the resulting hashmap from Dijkstra's algorithm
+     * @param endNode the endNode is the first node to look for and backtrack from there
      */
     public static void printPath2(HashMap<Integer,Integer> result, Integer endNode){
         //Base case
         if(result.get(endNode) == null){
-            //System.out.println(endNode);
             return;
         }
-
         int otherMovie = result.get(endNode);
         //The List index is off by 1 so need to subtract 1
         System.out.println(movies.get(endNode-1).getTitle() + " ===> " + movies.get(otherMovie-1).getTitle());
-
         printPath2(result, result.get(endNode));
     }
 
@@ -219,14 +200,13 @@ public class NetflixAnalyzer {
     }
 
     /**
-     *
+     * Displays various statistics about the graph
      */
     private static void displayGraphStatistics(){
         //Number of nodes
         int numNodes = moviesGraph.getNumVertices();
         //Number of edges
         int numEdges = moviesGraph.getNumEdges();
-
 
         //Density for a directed graph
         double density = (double)numEdges/((double)numNodes * (double)(numNodes-1));
@@ -240,9 +220,7 @@ public class NetflixAnalyzer {
         //avg length of the shortest path
         int avgLengthShortesPath = GraphStatistics.avgLengthShortesPath(allPairsShortestPath, INFINITY);
 
-
         System.out.println("Printing statisctics about the graph...");
-        System.out.println("Shortest paths " +Arrays.deepToString(allPairsShortestPath)); //TODO: Remove, this line is just for testing
         System.out.println("Density = " + density);
         System.out.printf("The graph contains %d nodes%n", numNodes);
         System.out.printf("The graph contains %d edges%n", numEdges);
