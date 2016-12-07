@@ -86,7 +86,6 @@ public class NetflixAnalyzer {
                         displayGraphStatistics();
                         break;
                     case 2:
-                        //Need to handle when there is no path
                         displayShortestPath();
                         break;
                     case 3:
