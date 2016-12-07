@@ -27,6 +27,12 @@ public class GraphStatistics {
         return diameter;
     }
 
+    /**
+     * Computes the average length of the paths returned by running Floyd Warshall
+     * @param allPairsShortestPaths the result of running Floyd Warshall
+     * @param INFINITY A number we are using as infinity
+     * @return the average length of the shortest paths
+     */
     public static int avgLengthShortesPath(int[][] allPairsShortestPaths, int INFINITY){
         int totalCost = 0;
         int numberOfPaths = 0;
