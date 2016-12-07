@@ -73,22 +73,23 @@ public class GraphAlgorithms {
         //The source has no previous node
         prev.put(source, null);
         pq.push(0,source);
-        //pq.push(source, 0);
 
         //Initialization
         for(int i : g.connections.keySet()){
             //Don't want to overwrite the the data for source
             if(i==source) continue;
-            dist.put(i, Integer.MAX_VALUE);
+            //TODO: I made it max_val/2
+            dist.put(i, Integer.MAX_VALUE/2);
             prev.put(i, null);
-            pq.push(dist.get(i), i);
-            //pq.push(i, dist.get(i));
+            //TODO: I changed this, I think we should initialize everything to infinity which we will call max_val/2
+//            pq.push(dist.get(i), i);
+            pq.push(Integer.MAX_VALUE/2, i);
         }
 
         while(!pq.isEmpty()){
-            //Get the top element then pop it
-            //System.out.println("Printing out pq ");
-            //pq.printHeap();
+            //TODO: Remove Get the top element then pop it
+            System.out.println("Printing out pq ");
+            pq.printHeap();
             int u = pq.topElement();
             pq.pop();
 

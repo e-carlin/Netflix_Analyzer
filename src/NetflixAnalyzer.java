@@ -31,7 +31,7 @@ public class NetflixAnalyzer {
 //            String name = reader.readLine();
 //            System.out.println("Your name is: " + name);
             //Get the input from the user
-            //System.out.println("Please specify which file you would like to analyze (movie file first, then review file)");
+            System.out.println("Please specify which file you would like to analyze (movie file first, then review file)");
             String movieFileName = sc.nextLine();
 
             //Skip a line
@@ -42,7 +42,8 @@ public class NetflixAnalyzer {
             //Might want to put this in a try/catch block
             NetflixFileProcessor NFFileProcessor = new NetflixFileProcessor();
 
-            NFFileProcessor.readNetflixFiles(movieFileName, reviewFileName);
+            //TODO: Finish this code
+//            NFFileProcessor.readNetflixFiles(movieFileName, reviewFileName);
 
 //            try{
 //                NFFileProcessor.readNetflixFiles(movieFileName, reviewFileName);
@@ -50,7 +51,7 @@ public class NetflixAnalyzer {
 //            }catch(IOException e){
 //                System.err.println("Not a valid file, try again");
 //            }
-            // NFFileProcessor.readNetflixFiles("movie_titles_short.txt", "movie_reviews_short.txt");
+             NFFileProcessor.readNetflixFiles("movie_titles_short.txt", "movie_reviews_short.txt");
 
             //Proccess the files, should be in a try block
 
@@ -84,8 +85,8 @@ public class NetflixAnalyzer {
                 //A try catch block might make more sense
             }
 
-            //For testing
-            //System.out.println("This is the graph that was created " + moviesGraph.toString());
+            //TODO: Remove for testing
+            System.out.println("This is the graph that was created " + moviesGraph.toString());
             System.out.println("Graph has been created");
             boolean flag = false;
             while(!flag){
@@ -130,11 +131,13 @@ public class NetflixAnalyzer {
   * Builds the graph for option 1; movies are connected if they were made within 5 years of eachother
   */
     private static void BuildGraphForMoviesMadeWithin5Years(){
-        int numberOfyearsApart = 5;
+        int numberOfYearsApart = 5;
         for(Movie u : movies){
             for(Movie v : movies){
+                //Don't add an edge to itself
+                //Don't connect movies that are already connected (if u -> v , then don't add v -> u)
                 if(u == v || moviesGraph.getNeighbors(u.getMovieId()).contains(v.getMovieId())) continue;
-                if(Math.abs(u.getYear() - v.getYear()) <= numberOfyearsApart) {
+                if(Math.abs(u.getYear() - v.getYear()) <= numberOfYearsApart) {
                     moviesGraph.addEdge(u.getMovieId(), v.getMovieId());
                 }
             }
@@ -223,9 +226,9 @@ public class NetflixAnalyzer {
         int numNodes = moviesGraph.getNumVertices();
         //Number of edges
         int numEdges = moviesGraph.getNumEdges();
-        //TODO: density
-        //Density for a directed graph
 
+
+        //Density for a directed graph
         double density = (double)numEdges/((double)numNodes * (double)(numNodes-1));
         //Maximum degree
         int maxDegree = moviesGraph.getMaxDegree();
