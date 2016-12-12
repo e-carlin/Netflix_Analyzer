@@ -1,48 +1,17 @@
-Options to build graph:
-1) u and v are adjacent if they were made within 5 years of eachother
-2) u and v are adjacent it atleast one user has watched both movies
+This was a term project for CS361 Algortihms and Data Structures.
+The application takes Netflix data on movies and reviews, builds a
+directed graph using the data, and then is able to perform analysis
+on the graph.
 
-Add Nodes{
-list movies = FileProcessor.getMovies();
-for(i=0; i<movies.size(); i++){
-g.addNode(list(i).getMovieID);
-}
+There are two options for building the graph:
+1) Movie u and v are adjacent if they were made within 5 years of eachother.
+2) Movie u and v are adjacent if atleast one person has seen both of them.
 
-Movie find(int id){
-    for all movies
-        if(movies.get(i).getID() == ID){
-        return movies.get(i);
-        }
-}
-
-BuildGraph Option1{
-for int i=0;i<movies.size(); i++){
-    Movie u = movies.get(i);
-    for(int j=0; j<movies.size(); j++){
-        if(movie(i) == movie(j) continue; //node can't be connected to itself
-        Movie v = movies.get(i);
-        if(Math.abs(u.getYear - v.getYear) <5){
-        //add edge between u and v
-        g.addEdge(u.getID(), v.getID());
-
-}
-}
-}
-}
-
-BuildGraph option2{
-for int i=0;i<movies.size(); i++){
-    Movie u = movies.get(i);
-    for(int j=0; j<movies.size(); j++){
-        if(movie(i) == movie(j) continue; //node can't be connected to itself
-        Movie v = movies.get(i);
-for(int k = 0; k=reviewers.size(); k++){
-Reviewer r = reviewers.get(k);
-if(r.keySet().contains(u.getID()) && r.keySet().contains(v.getID())){
-g.addEdge(u.getID, v.getID);
-break;
-}
-}
-        //add edge between u and v
-        g.addEdge(u.getID(), v.getID());
-}
+Some of the graph analysis you can run:
+- Number of nodes
+- Number of edges
+- Density
+- Maximum degree of any node
+- Diameter, computed using the Floyd Warshall algorithm
+- Average length of the shortest paths, computed using Floyd Warhsall
+- Display shortes path between any two nodes, computed using Dijkstra's Algorithm
